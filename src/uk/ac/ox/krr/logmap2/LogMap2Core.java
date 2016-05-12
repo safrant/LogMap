@@ -467,17 +467,20 @@ public class LogMap2Core {
 		
 		// if (!logmap_mappings_path.equals("") && file_folder.exists() &&
 		// file_folder.isAbsolute()){ //Some experiments do not provide path...
-		if (!logmap_mappings_path.equals("") && file_folder.isAbsolute()) { // Some
+		// if (!logmap_mappings_path.equals("") && file_folder.isAbsolute()) {
+		// // Some
 																			// experiments
 																			// do
 																			// not
 																			// provide
 																			// path...
 			
-			//if (!file_folder.isAbsolute()){
+		// if (!file_folder.isAbsolute()){oi
 			//	logmap_mappings_path = file_folder.getAbsolutePath();
 			//}
 			
+		try {
+
 			//FINAL OVERLAPPING
 			//Extracts new overlapping for anchors and saves overlapping as OWL files
 			LogOutput.print("Creating overlapping output");
@@ -487,7 +490,7 @@ public class LogMap2Core {
 			LogOutput.print("Saving output mapping files");
 			saveExtractedMappings("logmap2_mappings");
 		}
-		else{
+ catch (Exception e) {
 			//System.err.println("The given output path is not absolute or it does not exist. The output mappings cannot be stored.");
 			LogOutput.print("The given output path is not absolute or it does not exist. The output mappings cannot be stored.");
 		}
@@ -529,6 +532,22 @@ public class LogMap2Core {
 		
 	}
 	
+	public static boolean canWrite(String path) {
+		File file = new File(path);
+		// if (!file.canWrite()) {
+		// return false;
+		// }
+		/* Java lies on Windows */
+		try {
+			new FileOutputStream(file, true).close();
+		} catch (IOException e) {
+			// LOGGER.info(path + ” is not writable: ” +
+			// e.getLocalizedMessage());
+			return false;
+		}
+		return true;
+	}
+
 	SatisfiabilityIntegration sat_checker;
 	boolean hasUnSat = false;
 	int numUnsat = 0;

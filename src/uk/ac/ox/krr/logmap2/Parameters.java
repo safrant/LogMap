@@ -18,10 +18,11 @@
  ******************************************************************************/
 package uk.ac.ox.krr.logmap2;
 
-import uk.ac.ox.krr.logmap2.io.ReadFile;
-import java.util.Set;
-import java.util.HashSet;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
+
+import uk.ac.ox.krr.logmap2.io.ReadFile;
 
 public class Parameters {
 
@@ -295,10 +296,11 @@ public class Parameters {
 			//File file = new File("thresholds.txt");
 			//System.out.println(file.getAbsolutePath() + "  " + file.exists());
 			
-			File file = new File ("parameters.txt");
-			
-			if (!file.exists()){
-				System.err.println("Error reading LogMap parameters. File 'parameters.txt' is not available. Using default parameters.");
+			File file = new File("parameters.txt");
+
+			if (!file.exists()) {
+				System.err
+						.println("Error reading LogMap parameters. File 'parameters.txt' is not available. Using default parameters.");
 				return;
 			}
 			

@@ -19,43 +19,33 @@
 package uk.ac.ox.krr.logmap2;
 
 
+import java.io.File;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+
 import uk.ac.ox.krr.logmap2.indexing.JointIndexManager;
-import uk.ac.ox.krr.logmap2.oaei.reader.MappingsReaderManager;
 import uk.ac.ox.krr.logmap2.indexing.OntologyProcessing;
 import uk.ac.ox.krr.logmap2.io.LogOutput;
 import uk.ac.ox.krr.logmap2.io.OWLAlignmentFormat;
 import uk.ac.ox.krr.logmap2.io.OutPutFilesManager;
 import uk.ac.ox.krr.logmap2.io.ReadFile;
+import uk.ac.ox.krr.logmap2.lexicon.LexicalUtilities;
 import uk.ac.ox.krr.logmap2.mappings.CandidateMappingManager;
 import uk.ac.ox.krr.logmap2.mappings.objects.MappingObjectStr;
+import uk.ac.ox.krr.logmap2.oaei.reader.MappingsReaderManager;
+import uk.ac.ox.krr.logmap2.overlapping.OverlappingExtractor4Mappings;
 import uk.ac.ox.krr.logmap2.reasoning.SatisfiabilityIntegration;
 import uk.ac.ox.krr.logmap2.repair.AnchorAssessment;
 import uk.ac.ox.krr.logmap2.utilities.Utilities;
-import uk.ac.ox.krr.logmap2.lexicon.LexicalUtilities;
-import uk.ac.ox.krr.logmap2.overlapping.OverlappingExtractor4Mappings;
-
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.TreeSet;
 
 
 /**
@@ -325,6 +315,11 @@ public class LogMap2_RepairFacility {
 				//System.out.println("\t" + map.getIRIStrEnt2());
 				
 				num_mixed_mappings++;
+				map.setTypeOfMapping(Utilities.CLASSES);
+
+				ordered_mappings.add(map);
+
+				num_original_class_mappings++;
 				
 			}
 			
@@ -422,7 +417,7 @@ public class LogMap2_RepairFacility {
 		//try{
 		
 		//TODO showOutput!!		
-		LogOutput.showOutpuLog(false);
+		LogOutput.showOutpuLog(true);
 		
 		//init = Calendar.getInstance().getTimeInMillis();
 		//PrecomputeIndexCombination.preComputeIdentifierCombination();
